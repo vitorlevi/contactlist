@@ -1,0 +1,44 @@
+<!DOCTYPE>
+<html ng-app="myApp">
+<head>
+	<meta charset="UTF-8">
+	<title>Contact List</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+</head>
+<body>
+<div class="container" ng-controller="AppCtrl">
+	<h1>Yocto</h1>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Number</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><input class="form-control" ng-model="contact.name"></td>
+				<td><input class="form-controlng-model" ng-model="contact.email"></td>
+				<td><input class="form-control ng-model" ng-model="contact.number"></td>
+				<td><buton class="btn btn-primary" ng-click="addContact()"> Add Contact</td>
+				<td><buton class="btn btn-primary" ng-click="update(item._id)"> Update</td>
+			</tr>
+			<tr ng-repeat="item in items">
+				<td>{{item.name}}</td>
+				<td>{{item.email}}</td>
+				<td>{{item.number}}</td>
+				<td><buton class="btn btn-danger" ng-click="removeContact(item._id)">Remove</td>
+				<td><buton class="btn btn-danger" ng-click="editContact(item._id)">Edit</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<script src="js/angular.min.js"></script>
+<script src="controllers/controller.js"></script>
+</body>
+</html>
+
