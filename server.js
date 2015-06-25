@@ -1,8 +1,13 @@
 var express = require('express');
-var app = express();
+var app = require('express')();
 var mongojs = require('mongojs');
-var db = mongojs('contactlist', ['items']);
+var db = mongojs('mongodb://dbconnect:123456@ds033750.mongolab.com:33750/mongobase', ['items']);
 var bodyParser = require('body-parser');
+var http = require('http').Server(app);
+
+app.listen(3000, function(){
+  console.log('listening on *:3000');
+});
 
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
@@ -60,6 +65,3 @@ app.put('/items/:id', function (req, res){
 });
 
 
-
-app.listen(3000);
-console.log("Server running on port 3000");
