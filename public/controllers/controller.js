@@ -1,8 +1,19 @@
 
 var myApp = angular.module('myApp', []);
 
+myApp.factory('socket', function (){
+	var socket  = io.connect('mongodb://dbconnect:123456@ds033750.mongolab.com:33750/mongobase');
+	return socket;
+})
+
+
 myApp.controller("AppCtrl", ['$scope', '$http', function($scope, $http) { 
-	
+	 var socket = io();
+	 socket.emit('chat message', "test message");
+
+	 socket.on('chat message', function(msg){
+	   console.log(msg);
+	  });
 	var refresh = function (){
 		$http.get('/items').success(function (response){
 			
@@ -11,14 +22,19 @@ myApp.controller("AppCtrl", ['$scope', '$http', function($scope, $http) {
 		});
 	};
 	refresh();
-
+	// $scope.contact = [];
 	$scope.addContact = function (){
 		
 		$http.post('/items', $scope.contact).success(function (response){
 			console.log(response);
 			refresh();
 		});
+		socket.emit('send item', $scope.contact);
 	};
+	socket.on('get item', function (data){
+		$scope.contact.push(data);
+		$scope.$digest();		
+	});
 
 	$scope.removeContact = function (id){
 		
